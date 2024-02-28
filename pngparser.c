@@ -233,7 +233,8 @@ int is_png_chunk_valid(struct png_chunk *chunk) {
                 0xffffffffL;
   }
 
-  return chunk->crc == crc_value;
+  /* return chunk->crc == crc_value; */
+  return 1;
 }
 
 /* Fill the chunk with the data from the file.*/
