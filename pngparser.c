@@ -272,8 +272,10 @@ int read_png_chunk(FILE *file, struct png_chunk *chunk) {
   return 0;
 
 error:
-  if (chunk->chunk_data)
+  if (chunk->chunk_data){
     free(chunk->chunk_data);
+    chunk->chunk_data = NULL;
+  }
   return 1;
 }
 
@@ -656,6 +658,7 @@ int load_png(const char *filename, struct image **img) {
 
       if (idat_chunk->chunk_data) {
         free(idat_chunk->chunk_data);
+        idat_chunk->chunk_data = NULL;
       }
 
       free(idat_chunk);
@@ -689,6 +692,7 @@ success:
   if (current_chunk) {
     if (current_chunk->chunk_data) {
       free(current_chunk->chunk_data);
+      current_chunk->chunk_data = NULL;
     }
     free(current_chunk);
   }
@@ -710,7 +714,8 @@ error_noinput:
   if (current_chunk) {
     if (current_chunk->chunk_data) {
       free(current_chunk->chunk_data);
-    }
+      current_chunk->chunk_data = NULL;  
+  }
     free(current_chunk);
   }
 
